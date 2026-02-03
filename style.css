@@ -1,0 +1,192 @@
+/* =========================================================
+   PROGRAM 5R – CLEAN FINAL STYLE (HTML MATCHED)
+========================================================= */
+
+:root{
+  --blue-1:#0ea5e9;
+  --blue-2:#2563eb;
+  --dark:#0f172a;
+}
+
+/* ================= GLOBAL ================= */
+*{ box-sizing:border-box; }
+
+html,body{
+  margin:0;
+  padding:0;
+  font-family:'Poppins',sans-serif;
+  background:#fff;
+  color:#2f2f2f;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+
+section{ scroll-margin-top:90px; }
+
+/* ================= NAVBAR ================= */
+.mini-nav.nav-5r{
+  position:sticky;
+  top:0;
+  z-index:1000;
+
+  display:flex;
+  align-items:center;
+
+  padding:8px 14px;
+  background:linear-gradient(90deg,#334155,#1e293b);
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+}
+
+.brand-logo{
+  display:flex;
+  align-items:center;
+  padding:6px 12px;
+  background:#fff;
+  border-radius:999px;
+}
+.brand-logo img{
+  height:28px;
+}
+
+/* ================= HERO ================= */
+.hero-5r{
+  background:url("BG5R.png") center/cover no-repeat;
+  min-height:60vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+
+  padding:80px 20px 60px;
+}
+
+.hero-5r-inner{
+  max-width:920px;
+}
+
+.hero-5r-title{
+  font-size:3rem;
+  font-weight:800;
+  color:#fff;
+  text-shadow:0 6px 20px rgba(0,0,0,.35);
+}
+
+.hero-5r-cta{
+  margin-top:24px;
+}
+
+/* CTA */
+.hero-5r-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:12px 22px;
+  border-radius:999px;
+
+  font-weight:800;
+  text-decoration:none;
+}
+
+.hero-5r-btn-ghost{
+  background:linear-gradient(135deg,#64B5F6,#ffffff);
+  color:var(--dark);
+  box-shadow:0 14px 34px rgba(14,165,233,.45);
+}
+
+.hero-5r-title{
+  animation: heroFloat 3s ease-in-out infinite;
+}
+
+@keyframes heroFloat{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-6px); }
+}
+
+
+/* ================= CONTENT ================= */
+.content{
+  width:95%;
+  max-width:1200px;
+  margin:48px auto;
+}
+
+.p5r-h2{
+  text-align:center;
+  font-size:1.9rem;
+  font-weight:800;
+  color:#2563eb;
+  margin-bottom:24px;
+}
+
+/* ================= DASHBOARD BUTTON ================= */
+.p5r-form-grid{
+  display:flex;
+  justify-content:center;
+}
+
+.p5r-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:14px 18px;
+  border-radius:16px;
+
+  background:linear-gradient(135deg,var(--blue-1),var(--blue-2));
+  color:#fff;
+  font-weight:800;
+  text-decoration:none;
+
+  box-shadow:0 10px 26px rgba(37,99,235,.45);
+}
+
+/* ================= MONITORING SHEET ================= */
+.sheet-wrapper{
+  width:95%;
+  max-width:1100px;
+  margin:0 auto;
+
+  height:70vh;
+  border-radius:18px;
+  overflow:hidden;
+
+  border:4px solid var(--blue-1);
+  background:#fff;
+  box-shadow:0 10px 30px rgba(14,165,233,.25);
+}
+
+.sheet-wrapper iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:768px){
+  .hero-5r-title{ font-size:2.2rem; }
+  .sheet-wrapper{ height:60vh; }
+}
+
+@media (max-width:420px){
+  .hero-5r-title{ font-size:1.9rem; }
+  .p5r-btn{ font-size:.95rem; }
+}
+
+.hero-5r-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  margin-bottom:14px;
+  padding:6px 14px;
+
+  background:rgba(255,255,255,.2);
+  color:#fff;
+  border-radius:999px;
+  font-weight:700;
+  font-size:.85rem;
+
+  backdrop-filter:blur(6px);
+}

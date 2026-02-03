@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Program 5R – Dashboard</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- Global & 5R Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style-5r.css" />
+</head>
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="mini-nav nav-5r" aria-label="Navigasi utama 5R">
+    <a href="index.html" class="brand-logo" aria-label="Paragon Technology & Innovation">
+      <img src="NEXARA.jpg" alt="Paragon Technology & Innovation" />
+      <img src="Logo.jpg" alt="Paragon Technology & Innovation" />
+    </a>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+ <section class="hero hero-5r" id="home" aria-labelledby="hero-title">
+  <div class="hero-5r-inner">
+    <div class="hero-5r-badge">
+      <i class="fa-solid fa-sparkles"></i>
+      <span></span>
+    </div>
+
+    <h1 class="hero-title hero-5r-title" id="hero-title">Mould Part <br>Replacement Monitoring</h1>
+
+    <p class="hero-5r-subtitle">
+    </p>
+
+    <div class="hero-5r-cta">
+      <a href="#submit" class="hero-5r-btn hero-5r-btn-ghost">
+        <i class="fa-solid fa-paper-plane"></i> LINE LIP 16
+      </a>
+    </div>
+  </div>
+</section>
+
+  <main>
+
+
+<!-- ========== SUBMIT ========== -->
+    <section class="page-5r-submit content" id="submit" aria-labelledby="p5r-submit-title">
+      <h2 id="p5r-submit-title" class="p5r-h2">DASHBOARD</h2>
+
+      <div class="p5r-form-grid" role="group" aria-label="Link cepat Google Form 5R">
+        <a class="p5r-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdIV43Hr6rGqzMJ6kJGgWHNU7zQNi-BtxdRefx3vuzXdpMu-Q/viewform" target="_self" rel="fa-paper-plane">
+          <i class="fa-solid fa-building" aria-hidden="true"></i>Link submit Mould Part Replacement
+        </a>
+      </div>
+   
+
+    <!-- ========== DASHBOARD MONITORING ========== -->
+<section class="page-5r-monitoring content" id="monitoring" aria-labelledby="p5r-monitoring-title">
+  <div class="sheet-wrapper">
+    <iframe
+      title="Monitoring Pergantian Teflon, Pin & Silikon Mould"
+      src="https://docs.google.com/spreadsheets/d/e/2PACX-1vREOpQdDxIcA-T82DZwXAvlC9gea7R4JmsCkaGqGIaUgxOWXXQNU5OkGizgwsSC_sfiv3usjwkv8wrz/pubhtml?gid=1067272270&single=true&single=true&headers=false&range=P2:AB21">
+    </iframe>
+  </div>
+</section>
+
+
+  </main>
+
+  <!-- JS (nav active + slider) -->
+  <script>
+    // ===== Smooth scroll: akurat walau navbar sticky =====
+    const nav = document.querySelector(".nav-5r");
+    const navH = () => (nav ? nav.offsetHeight : 0);
+
+    const pillLinks = Array.from(document.querySelectorAll(".pill-link"));
+    const setActive = (hash) => {
+      pillLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === hash));
+    };
+
+    pillLinks.forEach(a => {
+      a.addEventListener("click", (e) => {
+        const href = a.getAttribute("href");
+        if (!href || !href.startsWith("#")) return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        setActive(href);
+
+        const top = target.getBoundingClientRect().top + window.scrollY - navH() - 10;
+        window.scrollTo({ top, behavior: "smooth" });
+      });
+    });
+
+    // ===== Active pill on scroll =====
+    const sections = ["#home", "#langkah", "#submit", "#journey", "#rekap"]
+      .map(id => document.querySelector(id))
+      .filter(Boolean);
+
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(en => en.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+
+      setActive("#" + visible.target.id);
+    }, { root: null, threshold: [0.25, 0.45, 0.6] });
+
+    sections.forEach(sec => io.observe(sec));
+
+    // ===== Slider basic (prev/next + swipe) =====
+    document.querySelectorAll("[data-slider]").forEach((slider) => {
+      const wrap = slider.querySelector(".slider-wrapper");
+      const slides = slider.querySelectorAll(".slide");
+      const prev = slider.querySelector(".btn-prev");
+      const next = slider.querySelector(".btn-next");
+      let i = 0;
+
+      const go = (idx) => {
+        i = (idx + slides.length) % slides.length;
+        wrap.style.transform = `translateX(${-i * 100}%)`;
+      };
+
+      prev.addEventListener("click", () => go(i - 1));
+      next.addEventListener("click", () => go(i + 1));
+
+      let startX = 0, dragging = false;
+      slider.addEventListener("touchstart", (e) => { dragging = true; startX = e.touches[0].clientX; }, {passive:true});
+      slider.addEventListener("touchend", (e) => {
+        if (!dragging) return;
+        dragging = false;
+        const endX = e.changedTouches[0].clientX;
+        const dx = endX - startX;
+        if (Math.abs(dx) > 40) dx < 0 ? go(i + 1) : go(i - 1);
+      }, {passive:true});
+
+      go(0);
+    });
+  </script>
+
+</body>
+</html>
